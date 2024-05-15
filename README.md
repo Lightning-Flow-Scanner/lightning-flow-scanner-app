@@ -24,4 +24,4 @@ The core module is loaded as a single JavaScript file static resource. The JavaS
 
 ## Development Status
 
-Despite the current error, this project demonstrates promising progress towards realizing a Lightning Web Component. Further testing and adjustments are required and future iterations may involve creating a version of the core module that is not based on CommonJS files.  
+Despite the current error, this project demonstrates promising progress towards realizing a Lightning Web Component. Further testing and adjustments are required and future iterations may involve creating a version of the core module that is not based on CommonJS files and or using different bundlers like rollup or parcel to build the JavaScript file.  

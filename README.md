@@ -20,7 +20,7 @@ The core module is loaded as a single JavaScript file static resource. The JavaS
 
 `cd lightning-flow-scanner-core`
 
-`ncc build ./dist/index.js -o <outputdir>`
+`ncc build ./dist/index.js -o <outputdir>` or `npx rollup -i out/index.js -o dist/bundle.js -f iife`
 
 ## Development Status
 

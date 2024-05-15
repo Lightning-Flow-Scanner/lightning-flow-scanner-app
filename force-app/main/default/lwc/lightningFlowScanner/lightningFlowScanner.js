@@ -10,7 +10,10 @@ export default class MyComponent extends LightningElement {
         try {
             // Load Lightning Flow Scanner from the static resource URL
             loadScript(this, lfs).then(() => {
-                let currentTime = lightningflowscanner.getRules();
+                let rules = lightningflowscanner.getRules();
+                for (let rule of rules){
+                    console.log(rule.name);
+                }
                 });
                 
           

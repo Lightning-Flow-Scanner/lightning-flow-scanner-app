@@ -1,12 +1,12 @@
  [![Lightning Flow Scanner](media/banner.png)](https://github.com/Lightning-Flow-Scanner)
-Pinpoint deviations from Industry Best Practices in Salesforce Flows and ensure standards of business automation excellence.
+
+#### Pinpoint deviations from Industry Best Practices in Salesforce Flows and ensure standards of business automation excellence.
 
  [![Demo](media/lfsapp.gif)](https://github.com/Lightning-Flow-Scanner)
 
 ## Features
 
-- **Flow Overview**: Displays a list of all flows in your Salesforce org.
-- **Scan Flow**: Allows users to scan the metadata of a selected flow.
+- **Flow Overview**: Displays a list of all flows in your Salesforce org and allows users to scan the metadata of a selected flow.
 - **Flow Analysis**: Provides detailed metadata analysis of the selected flow.
 
 ## Using the Lightning Flow Scanner

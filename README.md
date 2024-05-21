@@ -1,8 +1,8 @@
  [![Lightning Flow Scanner](media/banner.png)](https://github.com/Lightning-Flow-Scanner)
 
-#### Pinpoint deviations from Industry Best Practices in Salesforce Flows and ensure standards of business automation excellence.
-
  [![Demo](media/lfsapp.gif)](https://github.com/Lightning-Flow-Scanner)
+
+#### Pinpoint deviations from Industry Best Practices in Salesforce Flows and ensure standards of business automation excellence.
 
 ## Features
 

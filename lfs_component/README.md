@@ -33,7 +33,7 @@ After installing the package, you can add the LightningFlowScanner component to 
 ## Installation
 
 ```sh
-sfdx force:package:install --package 04tDn0000011NpgIAE --wait 10 -u <YourOrg>
+sfdx force:package:install --package 04tDn0000011NpvIAE --wait 10 -u <YourOrg>
 ```
 
 ## Development

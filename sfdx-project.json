@@ -1,12 +1,24 @@
 {
   "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
-    }
+      {
+          "path": "force-app",
+          "default": true,
+          "package": "app_namespace",
+          "versionName": "1.0.0",
+          "versionNumber": "1.0.0.NEXT"
+      },
+      {
+          "path": "lfs_component",
+          "package": "lfs_component",
+          "versionName": "1.0.0",
+          "versionNumber": "1.0.0.NEXT"
+      }
   ],
-  "name": "LightningFlowScannerApp",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "59.0"
+  "sourceApiVersion": "51.0",
+  "packageAliases": {
+      "app_namespace": "0HoXXXXXXXXXXXXXXX",
+      "lfs_component": "0HoYYYYYYYYYYYYYYY"
+  }
 }

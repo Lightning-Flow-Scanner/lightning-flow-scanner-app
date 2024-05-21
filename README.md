@@ -44,7 +44,7 @@ sfdx force:auth:web:login -d -a <YourOrgAlias>
 Install the Lightning Flow Scanner Component required for core functionality:
 
 ```sh
-sfdx force:package:install --package 04tDn0000011NplIAE --wait 10 -u <YourOrgAlias>
+sfdx force:package:install --package 04tDn0000011NpvIAE --wait 10 -u <YourOrgAlias>
 ```
 
 3) Push Source to Your Org:

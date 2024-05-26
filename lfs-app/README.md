@@ -30,8 +30,8 @@ After installing the package, you can add the LightningFlowScanner component to 
 
 ```html
 <lightning-flow-scanner
-  name="{!v.flowName}"
-  metadata="{!v.flowMetadata}"
+  name="{flowName}"
+  metadata="{flowMetadata}"
 ></lightning-flow-scanner>
 ```
 

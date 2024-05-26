@@ -9,16 +9,19 @@
     },
     {
       "path": "lfs-app",
-      "package": "lightningFlowScanner",
+      "package": "lfs_component",
       "versionName": "1.0.0",
-      "versionNumber": "1.0.0.NEXT"
+      "versionNumber": "1.0.0.NEXT",
+      "versionDescription": "A Salesforce Lightning Web Component designed to pinpoint deviations from Industry Best Practices in a Salesforce Flow, ensuring standards of business automation excellence. "
     }
   ],
-  "namespace": "",
+  "namespace": "lfs_component",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "60.0",
   "packageAliases": {
-    "app_namespace": "0HoXXXXXXXXXXXXXXX",
-    "lfs_component": "0HoYYYYYYYYYYYYYYY"
+    "lfs_component": "0HoDn0000010wC9KAI",
+    "lfs_component@0.1.0-1": "04tDn0000011NpgIAE",
+    "lfs_component@0.1.0-2": "04tDn0000011NplIAE",
+    "lfs_component@0.1.0-4": "04tDn0000011NpvIAE"
   }
 }

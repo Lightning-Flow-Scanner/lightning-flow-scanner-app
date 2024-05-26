@@ -1,21 +1,30 @@
 <template>
-    <div class="container">
-        <main>
-            <ul class="tabs">
-                <li class={FlowsClass} data-tab="1" onclick={handleTabClick}>Flows</li>
-                <li class={AnalysisClass} data-tab="2" onclick={handleTabClick}>Analysis</li>
-            </ul>
-            <div class="tab-content">
-                <template if:true={err}>
-                    <p>Error fetching Flows: {err}</p>
-                </template>
-                <template if:true={isTab1Active}>
-                    <c-flow-overview records={records} err={err} onscanflow={handleScanFlow}></c-flow-overview>
-                </template>
-                <template if:true={isTab2Active}>
-                    <lfs_component-lightning-flow-scanner name={flowName} metadata={flowMetadata}></lfs_component-lightning-flow-scanner>
-                </template>
-            </div>
-        </main>
-    </div>
+  <div class="container">
+    <main>
+      <ul class="tabs">
+        <li class={FlowsClass} data-tab="1" onclick={handleTabClick}>Flows</li>
+        <li class={AnalysisClass} data-tab="2" onclick={handleTabClick}>
+          Analysis
+        </li>
+      </ul>
+      <div class="tab-content">
+        <template lwc:if={err}>
+          <p>Error fetching Flows: {err}</p>
+        </template>
+        <template lwc:if={isTab1Active}>
+          <c-flow-overview
+            records={records}
+            err={err}
+            onscanflow={handleScanFlow}
+          ></c-flow-overview>
+        </template>
+        <template lwc:if={isTab2Active}>
+          <lfs_component-lightning-flow-scanner
+            name={flowName}
+            metadata={flowMetadata}
+          ></lfs_component-lightning-flow-scanner>
+        </template>
+      </div>
+    </main>
+  </div>
 </template>

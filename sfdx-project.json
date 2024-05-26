@@ -13,8 +13,7 @@
       "versionName": "1.0.0",
       "versionNumber": "1.0.0.NEXT",
       "versionDescription": "A Salesforce Lightning Web Component designed to pinpoint deviations from Industry Best Practices in a Salesforce Flow, ensuring standards of business automation excellence. "
-    },
-    { "path": "mock-app" }
+    }
   ],
   "namespace": "lfs_component",
   "sfdcLoginUrl": "https://login.salesforce.com",

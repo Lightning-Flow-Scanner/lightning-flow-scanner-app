@@ -33,6 +33,7 @@ export default class lightningFlowScannerApp extends LightningElement {
     try {
       await loadScript(this, OrgCheckStaticRessource + "/js/jsforce.js");
       let SF_API_VERSION = "60.0";
+      // jsforce namespace is defined on static resource
       // eslint-disable-next-line no-undef
       this.conn = new jsforce.Connection({
         accessToken: this.accessToken,
@@ -94,13 +95,12 @@ export default class lightningFlowScannerApp extends LightningElement {
     this.activeTab = parseInt(event.currentTarget.dataset.tab, 10);
   }
 
-  handleScanFlow(event) {
+  async handleScanFlow(event) {
     console.log("scan");
     const flowId = event.detail.flowId;
     const record = this.records.find((rec) => rec.id === flowId);
-
     if (record) {
-      this.loadFlowMetadata(record, this.conn);
+      await this.loadFlowMetadata(record, this.conn);
       this.selectedFlowRecord = record;
     }
     this.activeTab = 2;

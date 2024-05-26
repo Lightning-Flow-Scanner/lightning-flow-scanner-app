@@ -1,9 +1,6 @@
 {
   "trailingComma": "none",
-  "plugins": [
-    "prettier-plugin-apex",
-    "@prettier/plugin-xml"
-  ],
+  "plugins": ["prettier-plugin-apex", "@prettier/plugin-xml"],
   "overrides": [
     {
       "files": "**/lwc/**/*.html",
@@ -12,6 +9,12 @@
     {
       "files": "*.{cmp,page,component}",
       "options": { "parser": "html" }
+    },
+    {
+      "files": "*.xml",
+      "options": {
+        "printWidth": 9007199254740990
+      }
     }
   ]
 }

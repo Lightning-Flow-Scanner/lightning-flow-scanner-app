@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <template if:true={error}>
+    <template lwc:if={error}>
       <p>Error scanning Flow: {error}</p>
     </template>
 
@@ -30,25 +30,21 @@
       </div>
     </template>
 
-    <template if:true={hasScanResults}>
+    <template lwc:if={hasScanResults}>
       <div class="results">
         <table>
           <thead>
             <tr>
               <th>Rule Name</th>
               <th>Severity</th>
-              <th>Violation Name</th>
+              <th>Violation Element Name</th>
               <th>Type</th>
               <th>Meta Type</th>
-              <th>Data Type</th>
-              <th>Location X</th>
-              <th>Location Y</th>
-              <th>Connects To</th>
-              <th>Expression</th>
+              <th>Violation Description</th>
             </tr>
           </thead>
           <tbody>
-            <template for:each={scanResult.ruleResults} for:item="rule">
+            <template for:each={ruleTable} for:item="rule">
               <template for:each={rule.details} for:item="detail">
                 <tr key={detail.id}>
                   <td>{rule.ruleName}</td>
@@ -56,11 +52,7 @@
                   <td>{detail.name}</td>
                   <td>{detail.type}</td>
                   <td>{detail.metaType}</td>
-                  <td>{detail.details.dataType}</td>
-                  <td>{detail.details.locationX}</td>
-                  <td>{detail.details.locationY}</td>
-                  <td>{detail.connectsTo}</td>
-                  <td>{detail.details.expression}</td>
+                  <td>{rule.ruleDefinition.description}</td>
                 </tr>
               </template>
             </template>

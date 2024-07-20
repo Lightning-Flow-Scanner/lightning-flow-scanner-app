@@ -3,8 +3,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>lightningFlowScanner</componentName>
-                <identifier>c_lightningFlowScanner</identifier>
+                <componentName>lightningFlowScannerApp</componentName>
+                <identifier>c_lightningFlowScannerApp</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

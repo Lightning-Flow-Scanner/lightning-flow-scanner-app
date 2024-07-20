@@ -32,7 +32,7 @@ export default class lightningFlowScannerApp extends LightningElement {
   async connectedCallback() {
     try {
       await loadScript(this, OrgCheckStaticRessource + "/js/jsforce.js");
-      let SF_API_VERSION = "60.0";
+      let SF_API_VERSION = "61.0";
       // jsforce namespace is defined on static resource
       // eslint-disable-next-line no-undef
       this.conn = new jsforce.Connection({

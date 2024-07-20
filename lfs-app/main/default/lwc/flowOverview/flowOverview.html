@@ -1,0 +1,20 @@
+<template>
+  <lightning-card title="Flows" icon-name="custom:custom19">
+    <template if:true={err}>
+      <p>Error fetching records: {err}</p>
+    </template>
+    <template if:false={records.length}>
+      <p>No flows available to scan</p>
+    </template>
+    <template if:true={records.length}>
+      <lightning-datatable
+        key-field="id"
+        data={records}
+        columns={columns}
+        hide-checkbox-column="true"
+        onrowaction={handleRowAction}
+      >
+      </lightning-datatable>
+    </template>
+  </lightning-card>
+</template>

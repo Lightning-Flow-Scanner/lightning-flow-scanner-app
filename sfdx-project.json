@@ -1,9 +1,6 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app"
-    },
-    {
       "path": "lfs-app",
       "default": true
     }

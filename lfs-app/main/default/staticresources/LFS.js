@@ -1,27 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('path-browserify'), require('xmlbuilder2')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'path-browserify', 'xmlbuilder2'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.lightningflowscanner = {}, global.p, global.xmlbuilder2));
-})(this, (function (exports, p, xmlbuilder2) { 'use strict';
-
-    function _interopNamespaceDefault(e) {
-        var n = Object.create(null);
-        if (e) {
-            Object.keys(e).forEach(function (k) {
-                if (k !== 'default') {
-                    var d = Object.getOwnPropertyDescriptor(e, k);
-                    Object.defineProperty(n, k, d.get ? d : {
-                        enumerable: true,
-                        get: function () { return e[k]; }
-                    });
-                }
-            });
-        }
-        n.default = e;
-        return Object.freeze(n);
-    }
-
-    var p__namespace = /*#__PURE__*/_interopNamespaceDefault(p);
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.lightningflowscanner = {}));
+})(this, (function (exports) { 'use strict';
 
     function convertFlowNodes(obj, nodes, key) {
         obj[key] = nodes.map((node) => node.element);
@@ -291,7 +272,7 @@
     }
 
     class Flow {
-        constructor(path, data) {
+        constructor(flowName, data) {
             this.flowVariables = ["choices", "constants", "dynamicChoiceSets", "formulas", "variables"];
             this.flowResources = ["textTemplates", "stages"];
             this.flowMetadata = [
@@ -332,15 +313,9 @@
                 "subflows",
                 "waits",
             ];
-            this.fsPath = p__namespace.resolve(path);
-            let flowName = p__namespace.basename(p__namespace.basename(this.fsPath), p__namespace.extname(this.fsPath));
-            if (flowName.includes(".")) {
-                flowName = flowName.split(".")[0];
-            }
             this.name = flowName;
             if (data) {
-                const hasFlowElement = !!data && typeof data === "object" && "Flow" in data;
-                if (hasFlowElement) {
+                if (data.Flow) {
                     this.xmldata = data.Flow;
                 }
                 else
@@ -13057,40 +13032,12 @@
         }
     }
 
-    class RuleLoader {
-        static loadCustomRule(ruleName, filePath) {
-            try {
-                // Resolve the filePath to an absolute path relative to the current working directory
-                const absolutePath = p.resolve(process.cwd(), filePath);
-                // Synchronously load the module based on the absolute file path
-                const module = require(absolutePath);
-                // Check if the module exports the given rule
-                if (module[ruleName] && typeof module[ruleName] === "function") {
-                    // Create an instance of the rule class
-                    const customRuleInstance = new module[ruleName]();
-                    return customRuleInstance;
-                }
-                else {
-                    // Handle case where module does not contain CustomFlowName
-                    console.error(`Error: ${filePath} does not export ${ruleName} class.`);
-                    return undefined;
-                }
-            }
-            catch (error) {
-                // Handle import errors
-                console.error(`Error importing ${filePath}:`, error);
-                return undefined;
-            }
-        }
-    }
-
     function GetRuleDefinitions(ruleConfig) {
         const selectedRules = [];
         if (ruleConfig && ruleConfig instanceof Map) {
             for (const ruleName of ruleConfig.keys()) {
                 let severity = "error";
                 try {
-                    const configuredPath = ruleConfig.get(ruleName)["path"];
                     const configuredSeverity = ruleConfig.get(ruleName)["severity"];
                     if (configuredSeverity &&
                         (configuredSeverity === "error" ||
@@ -13098,16 +13045,9 @@
                             configuredSeverity === "note")) {
                         severity = configuredSeverity;
                     }
-                    if (configuredPath) {
-                        let customRule = RuleLoader.loadCustomRule(ruleName, configuredPath);
-                        selectedRules["severity"] = severity;
-                        selectedRules.push(customRule);
-                    }
-                    else {
-                        const matchedRule = new DynamicRule(ruleName);
-                        matchedRule["severity"] = severity;
-                        selectedRules.push(matchedRule);
-                    }
+                    const matchedRule = new DynamicRule(ruleName);
+                    matchedRule["severity"] = severity;
+                    selectedRules.push(matchedRule);
                 }
                 catch (error) {
                     console.log(error.message);
@@ -13124,70 +13064,6 @@
         }
         return selectedRules;
     }
-
-    /******************************************************************************
-    Copyright (c) Microsoft Corporation.
-
-    Permission to use, copy, modify, and/or distribute this software for any
-    purpose with or without fee is hereby granted.
-
-    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-    PERFORMANCE OF THIS SOFTWARE.
-    ***************************************************************************** */
-    /* global Reflect, Promise, SuppressedError, Symbol */
-
-
-    function __awaiter(thisArg, _arguments, P, generator) {
-        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    }
-
-    typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-        var e = new Error(message);
-        return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-    };
-
-    var fs = {};
-
-    class ParsedFlow {
-        constructor(uri, flow, errorMessage) {
-            this.uri = uri;
-            this.flow = flow;
-            if (errorMessage) {
-                this.errorMessage = errorMessage;
-            }
-        }
-    }
-
-    function ParseFlows(selectedUris) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const parseResults = [];
-            for (const uri of selectedUris) {
-                try {
-                    const normalizedURI = p.normalize(uri);
-                    const content = yield fs.readFileSync(normalizedURI);
-                    const xmlString = content.toString();
-                    const flowObj = xmlbuilder2.convert(xmlString, { format: "object" });
-                    parseResults.push(new ParsedFlow(uri, new Flow(uri, flowObj)));
-                }
-                catch (e) {
-                    parseResults.push(new ParsedFlow(uri, undefined, e.errorMessage));
-                }
-            }
-            return parseResults;
-        });
-    }
-
     function ScanFlows(flows, ruleOptions) {
         const flowResults = [];
         let selectedRules = [];
@@ -13240,9 +13116,6 @@
         else {
             return GetRuleDefinitions();
         }
-    }
-    function parse(selectedUris) {
-        return ParseFlows(selectedUris);
     }
     function scan(parsedFlows, ruleOptions) {
         let flows = [];
@@ -13307,7 +13180,6 @@
     exports.ScanResult = ScanResult;
     exports.fix = fix;
     exports.getRules = getRules;
-    exports.parse = parse;
     exports.scan = scan;
 
 }));

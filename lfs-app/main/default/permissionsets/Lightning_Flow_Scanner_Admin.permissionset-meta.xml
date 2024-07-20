@@ -10,4 +10,8 @@
         <tab>Lightning_Flow_Scanner</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <applicationVisibilities>
+        <application>LFSApp</application>
+        <visible>true</visible>
+    </applicationVisibilities>
 </PermissionSet>

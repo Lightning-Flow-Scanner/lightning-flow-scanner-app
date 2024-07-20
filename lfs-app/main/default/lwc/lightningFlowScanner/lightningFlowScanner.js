@@ -28,7 +28,7 @@ export default class LightningFlowScanner extends LightningElement {
             ...new lightningflowscanner.Flow(this.name, this.metadata) // eslint-disable-line no-undef
           };
 
-          let uri = "/services/data/v60.0/tooling/sobjects/Flow/" + this.id;
+          let uri = "/services/data/v61.0/tooling/sobjects/Flow/" + this.id;
           let parsedFlow = { uri, flow: this.flow };
           try {
             // eslint-disable-next-line no-undef

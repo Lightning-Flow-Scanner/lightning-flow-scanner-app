@@ -1,11 +1,11 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
-      "default": true
+      "path": "force-app"
     },
     {
-      "path": "lfs-app"
+      "path": "lfs-app",
+      "default": true
     }
   ],
   "sfdcLoginUrl": "https://login.salesforce.com",

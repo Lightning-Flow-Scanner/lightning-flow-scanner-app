@@ -27,7 +27,6 @@ export default class LightningFlowScanner extends LightningElement {
           this.flow = {
             ...new lightningflowscanner.Flow(this.name, this.metadata) // eslint-disable-line no-undef
           };
-
           let uri = "/services/data/v61.0/tooling/sobjects/Flow/" + this.id;
           let parsedFlow = { uri, flow: this.flow };
           try {
@@ -74,6 +73,10 @@ export default class LightningFlowScanner extends LightningElement {
 
   get hasScanResults() {
     return this.isLoaded && (this.scanResult?.ruleResults?.length > 0 ?? false);
+  }
+
+  get noViolations() {
+    return !this.scanResult?.ruleResults?.find((rule) => rule.occurs);
   }
 
   get flowName() {

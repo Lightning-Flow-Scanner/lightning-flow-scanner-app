@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <main>
+    <lightning-spinner lwc:if={isLoading} size="large"></lightning-spinner>
+    <main lwc:else>
       <ul class="tabs">
         <li class={FlowsClass} data-tab="1" onclick={handleTabClick}>Flows</li>
         <li class={AnalysisClass} data-tab="2" onclick={handleTabClick}>

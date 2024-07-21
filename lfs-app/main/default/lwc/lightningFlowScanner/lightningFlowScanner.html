@@ -17,7 +17,7 @@
               <strong>Type:</strong> {flow.processType}
             </div>
             <div class="info-item">
-              <strong>API Version:</strong> {flow.apiVersion}
+              <strong>API Version:</strong> {flow.xmldata.apiVersion}
             </div>
             <div class="info-item">
               <strong># Rules Run:</strong> {numberOfRules}
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="description">
-          <strong>Description:</strong> {flow.description}
+          <strong>Description:</strong> {flow.xmldata.description}
         </div>
       </div>
     </template>
@@ -58,6 +58,11 @@
             </template>
           </tbody>
         </table>
+        <template lwc:if={noViolations}>
+          <div class="slds-align_absolute-center slds-text-heading_large">
+            Well done 👏👏👏 0 flow smells found 🚀🚀🚀
+          </div>
+        </template>
       </div>
     </template>
 

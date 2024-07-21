@@ -13,6 +13,9 @@
         columns={columns}
         hide-checkbox-column="true"
         onrowaction={handleRowAction}
+        default-sort-direction={sortDirection}
+        sorted-by={sortedBy}
+        onsort={sortRecords}
       >
       </lightning-datatable>
     </template>

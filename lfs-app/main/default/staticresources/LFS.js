@@ -616,7 +616,7 @@
             }
         }
     }
-
+  
     class CopyAPIName extends RuleCommon {
         constructor() {
             super({
@@ -645,7 +645,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class DMLStatementInLoop extends RuleCommon {
         constructor() {
             super({
@@ -688,7 +688,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class DuplicateDMLOperation extends RuleCommon {
         constructor() {
             super({
@@ -794,7 +794,7 @@
             return start;
         }
     }
-
+  
     class FlowDescription extends RuleCommon {
         constructor() {
             super({
@@ -816,7 +816,7 @@
                 : new RuleResult(this, []);
         }
     }
-
+  
     class FlowName extends RuleCommon {
         constructor() {
             super({
@@ -844,7 +844,7 @@
                 : new RuleResult(this, []);
         }
     }
-
+  
     var IdPrefixes = {
         ids: [
             {
@@ -12639,7 +12639,7 @@
             },
         ],
     };
-
+  
     class HardcodedId extends RuleCommon {
         constructor() {
             super({
@@ -12690,7 +12690,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class InactiveFlow extends RuleCommon {
         constructor() {
             super({
@@ -12719,7 +12719,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class MissingFaultPath extends RuleCommon {
         constructor() {
             super({
@@ -12776,7 +12776,7 @@
             return false;
         }
     }
-
+  
     class MissingNullHandler extends RuleCommon {
         constructor() {
             super({
@@ -12854,7 +12854,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class ProcessBuilder extends RuleCommon {
         constructor() {
             super({
@@ -12878,7 +12878,7 @@
             ]);
         }
     }
-
+  
     class SOQLQueryInLoop extends RuleCommon {
         constructor() {
             super({
@@ -12921,7 +12921,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     class UnconnectedElement extends RuleCommon {
         constructor() {
             super({
@@ -12959,7 +12959,36 @@
             });
         }
     }
-
+  
+    class UnsafeRunningContext extends RuleCommon {
+        constructor() {
+            super({
+                name: "UnsafeRunningContext",
+                label: "Unsafe Flow Running Context",
+                description: "This flow is configured to run in System Mode without Sharing. This system context grants all running users the permission to view and edit all data in your org. Running a flow in System Mode without Sharing can lead to unsafe data access.",
+                supportedTypes: [...FlowType.backEndTypes, ...FlowType.visualTypes],
+                docRefs: [
+                    {
+                        label: "Learn about data safety when running flows in system context in Salesforce Help",
+                        path: "https://help.salesforce.com/s/articleView?id=sf.flow_distribute_context_data_safety_system_context.htm&type=5",
+                    },
+                ],
+                isConfigurable: false,
+                autoFixable: false,
+            }, { severity: "warning" });
+        }
+        execute(flow) {
+            const hasRunInMode = "runInMode" in flow.xmldata;
+            const runInMode = hasRunInMode ? flow.xmldata.runInMode : undefined;
+            const riskyMode = "SystemModeWithoutSharing";
+            const results = [];
+            if (hasRunInMode && runInMode === riskyMode) {
+                results.push(new ResultDetails(new FlowAttribute(runInMode, "runInMode", `== ${riskyMode}`)));
+            }
+            return new RuleResult(this, results);
+        }
+    }
+  
     class UnusedVariable extends RuleCommon {
         constructor() {
             super({
@@ -13004,7 +13033,7 @@
             return new RuleResult(this, results);
         }
     }
-
+  
     const DefaultRuleStore = {
         APIVersion,
         AutoLayout,
@@ -13021,8 +13050,9 @@
         UnconnectedElement,
         UnusedVariable,
         InactiveFlow,
+        UnsafeRunningContext,
     };
-
+  
     class DynamicRule {
         constructor(className) {
             if (DefaultRuleStore[className] === undefined || DefaultRuleStore[className] === null) {
@@ -13031,7 +13061,7 @@
             return new DefaultRuleStore[className]();
         }
     }
-
+  
     function GetRuleDefinitions(ruleConfig) {
         const selectedRules = [];
         if (ruleConfig && ruleConfig instanceof Map) {
@@ -13058,7 +13088,6 @@
             // tslint:disable-next-line:forin
             for (const rule in DefaultRuleStore) {
                 const matchedRule = new DynamicRule(rule);
-                matchedRule["severity"] = "error";
                 selectedRules.push(matchedRule);
             }
         }
@@ -13107,7 +13136,7 @@
         }
         return flowResults;
     }
-
+  
     function getRules(ruleNames) {
         if (ruleNames && ruleNames.length > 0) {
             const ruleSeverityMap = new Map(ruleNames.map((name) => [name, "error"]));
@@ -13166,7 +13195,7 @@
         }
         return newResults;
     }
-
+  
     exports.Compiler = Compiler;
     exports.Flow = Flow;
     exports.FlowAttribute = FlowAttribute;

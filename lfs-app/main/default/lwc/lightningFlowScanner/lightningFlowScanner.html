@@ -47,7 +47,7 @@
             <template for:each={ruleTable} for:item="rule">
               <template for:each={rule.details} for:item="detail">
                 <tr key={detail.id}>
-                  <td>{rule.ruleName}</td>
+                  <td><a href={rule.ruleDefinition.uri}>{rule.ruleName}</a></td>
                   <td>{rule.severity}</td>
                   <td>{detail.name}</td>
                   <td>{detail.type}</td>

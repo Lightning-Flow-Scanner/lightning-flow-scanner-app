@@ -352,31 +352,31 @@
                 else if (this.flowVariables.includes(nodeType)) {
                     if (Array.isArray(data)) {
                         for (const node of data) {
-                            allNodes.push(new FlowVariable(node.name, nodeType, node));
+                            allNodes.push(new FlowVariable(node?.name, nodeType, node));
                         }
                     }
                     else {
-                        allNodes.push(new FlowVariable(data.name, nodeType, data));
+                        allNodes.push(new FlowVariable(data?.name, nodeType, data));
                     }
                 }
                 else if (this.flowNodes.includes(nodeType)) {
                     if (Array.isArray(data)) {
                         for (const node of data) {
-                            allNodes.push(new FlowNode(node.name, nodeType, node));
+                            allNodes.push(new FlowNode(node?.name, nodeType, node));
                         }
                     }
                     else {
-                        allNodes.push(new FlowNode(data.name, nodeType, data));
+                        allNodes.push(new FlowNode(data?.name, nodeType, data));
                     }
                 }
                 else if (this.flowResources.includes(nodeType)) {
                     if (Array.isArray(data)) {
                         for (const node of data) {
-                            allNodes.push(new FlowResource(node.name, nodeType, node));
+                            allNodes.push(new FlowResource(node?.name, nodeType, node));
                         }
                     }
                     else {
-                        allNodes.push(new FlowResource(data.name, nodeType, data));
+                        allNodes.push(new FlowResource(data?.name, nodeType, data));
                     }
                 }
             }

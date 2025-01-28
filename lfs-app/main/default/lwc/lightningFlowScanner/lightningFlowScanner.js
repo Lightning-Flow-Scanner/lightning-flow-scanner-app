@@ -72,7 +72,7 @@ export default class LightningFlowScanner extends LightningElement {
   }
 
   get hasScanResults() {
-    return this.isLoaded && (this.scanResult?.ruleResults?.length > 0 ?? false);
+    return this.isLoaded && (this.scanResult?.ruleResults?.length > 0 || false);
   }
 
   get noViolations() {

@@ -13,3 +13,6 @@ package.xml
 
 # Readme file for lightning flow scanner
 lfs-app/README.md
+**/tsconfig.json
+
+**/*.ts

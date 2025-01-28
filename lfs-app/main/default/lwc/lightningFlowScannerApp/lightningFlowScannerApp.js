@@ -53,17 +53,17 @@ export default class lightningFlowScannerApp extends LightningElement {
             : "LatestVersion";
           const result = {
             id: record.Id,
-            developerName: record.DeveloperName,
+            developerName: record?.DeveloperName,
             developerNameUrl: `/${record.Id}`,
             isActive: !!record.ActiveVersionId,
-            masterLabel: record[deriveFromVersion].MasterLabel,
-            processType: record[deriveFromVersion].ProcessType,
-            flowDescription: record[deriveFromVersion].Description,
-            lastModifiedDate: record[deriveFromVersion].LastModifiedDate,
-            lastModifiedBy: record[deriveFromVersion].LastModifiedBy.Name,
+            masterLabel: record[deriveFromVersion]?.MasterLabel,
+            processType: record[deriveFromVersion]?.ProcessType,
+            flowDescription: record[deriveFromVersion]?.Description,
+            lastModifiedDate: record[deriveFromVersion]?.LastModifiedDate,
+            lastModifiedBy: record[deriveFromVersion]?.LastModifiedBy?.Name,
             versionId: record.ActiveVersionId
-              ? record.ActiveVersionId
-              : record.LatestVersionId
+              ? record?.ActiveVersionId
+              : record?.LatestVersionId
           };
           return result;
         });

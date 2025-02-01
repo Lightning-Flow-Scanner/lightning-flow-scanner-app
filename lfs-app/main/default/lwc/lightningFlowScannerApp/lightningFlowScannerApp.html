@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <lightning-spinner lwc:if={isLoading} size="large"></lightning-spinner>
+    <lightning-spinner
+      lwc:if={isLoading}
+      size="large"
+      alternative-text="Scanning your flow"
+    ></lightning-spinner>
     <main lwc:else>
       <ul class="tabs">
         <li class={FlowsClass} data-tab="1" onclick={handleTabClick}>Flows</li>
@@ -15,14 +19,15 @@
         <template lwc:if={isTab1Active}>
           <c-flow-overview
             records={records}
-            err={err}
             onscanflow={handleScanFlow}
           ></c-flow-overview>
         </template>
         <template lwc:if={isTab2Active}>
           <c-lightning-flow-scanner
+            lwc:ref="lfs"
             name={flowName}
             metadata={flowMetadata}
+            id={flowId}
           ></c-lightning-flow-scanner>
         </template>
       </div>

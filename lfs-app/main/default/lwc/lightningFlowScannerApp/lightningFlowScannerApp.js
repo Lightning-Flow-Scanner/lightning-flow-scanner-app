@@ -35,8 +35,7 @@ export default class lightningFlowScannerApp extends LightningElement {
     try {
       await loadScript(this, OrgCheckStaticRessource + "/js/jsforce.js");
       let SF_API_VERSION = "61.0";
-      // jsforce namespace is defined on static resource
-      // eslint-disable-next-line no-undef
+      // umd namespace is jsforce
       this.conn = new jsforce.Connection({
         accessToken: this.accessToken,
         version: SF_API_VERSION,
@@ -67,15 +66,12 @@ export default class lightningFlowScannerApp extends LightningElement {
           };
           return result;
         });
-
-        if (this.records.length > 0) {
-          this.selectedFlowRecord = this.records[0];
-          await this.loadFlowMetadata(this.selectedFlowRecord);
-        }
       }
     } catch (error) {
       this.err = error.message;
       console.error(error.message);
+    } finally {
+      this.isLoading = false;
     }
   }
 
@@ -85,15 +81,17 @@ export default class lightningFlowScannerApp extends LightningElement {
         `SELECT Id, ActiveVersionId, LatestVersionId FROM FlowDefinition WHERE Id = '${record.id}' LIMIT 1`
       );
       const latestRecord = ensureLatest.records.pop();
-      let id = latestRecord.LatestVersionId ?? latestRecord.ActiveVersionId;
+      const id = latestRecord.LatestVersionId ?? latestRecord.ActiveVersionId;
       const metadataRes = await this.conn.tooling.query(
         `SELECT Id, Fullname, Metadata, Description, ApiVersion FROM Flow WHERE Id = '${id}' LIMIT 1`
       );
-      let fullname = metadataRes.records[0].FullName;
-      let fmd = metadataRes.records[0].Metadata;
+      const fullname = metadataRes.records[0].FullName;
+      const fmd = metadataRes.records[0].Metadata;
+
       if (metadataRes && metadataRes.records) {
         this.flowName = fullname;
         this.flowMetadata = fmd;
+        this.flowId = id;
       }
     } catch (error) {
       this.err = error.message;

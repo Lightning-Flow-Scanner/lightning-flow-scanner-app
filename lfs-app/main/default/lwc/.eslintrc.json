@@ -1,5 +1,9 @@
 {
   "extends": ["@salesforce/eslint-config-lwc/recommended"],
+  "globals": {
+    "lightningflowscanner": true,
+    "jsforce": true
+  },
   "overrides": [
     {
       "files": ["*.test.js"],

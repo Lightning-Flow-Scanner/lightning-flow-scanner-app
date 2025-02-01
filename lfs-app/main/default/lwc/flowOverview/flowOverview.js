@@ -12,8 +12,6 @@ export default class FlowOverview extends NavigationMixin(LightningElement) {
 
   @track _data = [];
 
-  @track err;
-
   sortedBy = "lastModifiedDate";
   sortedDirection = "desc";
   columns = [

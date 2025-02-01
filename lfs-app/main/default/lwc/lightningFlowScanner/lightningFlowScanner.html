@@ -4,6 +4,12 @@
       <p>Error scanning Flow: {error}</p>
     </template>
 
+    <lightning-spinner
+      lwc:if={showLoading}
+      size="large"
+      alternative-text="Scanning your flow"
+    ></lightning-spinner>
+
     <template lwc:if={flowName}>
       <div class="header">
         <div class="flow-container">
@@ -47,7 +53,9 @@
             <template for:each={ruleTable} for:item="rule">
               <template for:each={rule.details} for:item="detail">
                 <tr key={detail.id}>
-                  <td><a href={rule.ruleDefinition.uri}>{rule.ruleName}</a></td>
+                  <td>
+                    <a href={rule.ruleDefinition.uri}>{rule.ruleName}</a>
+                  </td>
                   <td>{rule.severity}</td>
                   <td>{detail.name}</td>
                   <td>{detail.type}</td>
@@ -60,7 +68,7 @@
         </table>
         <template lwc:if={noViolations}>
           <div class="slds-align_absolute-center slds-text-heading_large">
-            Well done 👏👏👏 0 flow smells found 🚀🚀🚀
+            Well done 👏👏👏 &nbsp;<u>0</u>&nbsp; flow smells found 🚀🚀🚀
           </div>
         </template>
       </div>
@@ -68,7 +76,7 @@
 
     <div class="github-star">
       <p>
-        Help us champion Best Practices in Flows by starring ⭐ us on
+        Help us champion Best Practices in Flows by starring ⭐ us on &nbsp;
         <a href="https://github.com/Lightning-Flow-Scanner" target="_blank"
           >GitHub</a
         >

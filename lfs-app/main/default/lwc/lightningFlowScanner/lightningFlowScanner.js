@@ -63,7 +63,6 @@ export default class LightningFlowScanner extends LightningElement {
     try {
       await loadScript(this, lfs);
       this.numberOfRules = lightningflowscanner.getRules().length;
-      window.lightningflowscanner = lightningflowscanner;
       this.scriptLoaded = true;
     } catch (error) {
       this.scriptLoaded = false;
@@ -75,14 +74,11 @@ export default class LightningFlowScanner extends LightningElement {
   scanFlow() {
     try {
       // UMD namespace is lightningflowscanner all lowercase
-      this.flow = new window.lightningflowscanner.Flow(
-        this.name,
-        this.metadata
-      );
+      this.flow = new lightningflowscanner.Flow(this.name, this.metadata);
       let uri = "/services/data/v61.0/tooling/sobjects/Flow/" + this.id;
       let parsedFlow = { uri, flow: this.flow };
       try {
-        const [scanResults] = window.lightningflowscanner.scan([parsedFlow]);
+        const [scanResults] = lightningflowscanner.scan([parsedFlow]);
         this.scanResult = { ...scanResults };
         this.generateRuleTable();
       } catch (e) {

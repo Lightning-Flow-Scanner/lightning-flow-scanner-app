@@ -30,7 +30,15 @@ const argValue = (flag, fallback) => {
 const outPath = path.resolve(repoRoot, argValue("--out", "media/clean-scan-celebration.png"));
 const captureAt = Number(argValue("--at", "1100"));
 // Sized to the panel, so the PNG is the celebration and not a field of white.
-const windowSize = argValue("--size", "1200,400");
+// The default is LinkedIn's 1.91:1 feed ratio: rendered at 640 CSS px and
+// upscaled, so the type stays legible once the feed shrinks the image.
+const PRESETS = {
+    linkedin: { size: "760,397", scale: "1.58" },
+    wide: { size: "1200,366", scale: "1" }
+};
+const preset = PRESETS[argValue("--preset", "linkedin")] || PRESETS.linkedin;
+const windowSize = argValue("--size", preset.size);
+const deviceScale = argValue("--scale", preset.scale);
 
 // Chromium comes from the Playwright cache; nothing here needs Playwright itself.
 function findChrome() {
@@ -67,10 +75,17 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <style>
   body { margin: 0; background: #f3f3f3; font-family: "Salesforce Sans", Arial, sans-serif; padding: 16px; }
-  .page { margin: 0 auto; }
+  .page { margin: 0 auto; width: 100%; box-sizing: border-box; }
+  .toolbar-row { flex-wrap: nowrap; }
   .slds-grid { display: flex; }
   .slds-grid_vertical-align-center { align-items: center; }
-  .table-card { min-height: 300px; }
+  .table-card { min-height: 250px; }
+  @media (max-width: 900px) {
+    body { padding: 10px; }
+    .toolbar-search { min-width: 0; width: 88px; }
+    .table-card { min-height: 322px; }
+    .toolbar-search.wide-only { display: none; }
+  }
   .toolbar-search {
     background: #fff; border: 1px solid #00205b; border-radius: 0.25rem;
     color: #7c8ba5; font-size: 0.8rem; padding: 0.25rem 0.5rem; min-width: 140px;
@@ -91,7 +106,7 @@ ${confettiCss}
     <div class="slds-grid slds-grid_vertical-align-center toolbar-row">
       <div class="toolbar-title"><h2>All Results</h2></div>
       <div class="toolbar-item"><div class="toolbar-search">Flow Name</div></div>
-      <div class="toolbar-item"><div class="toolbar-search">Search All Fields</div></div>
+      <div class="toolbar-item"><div class="toolbar-search wide-only">Search All Fields</div></div>
       <div class="toolbar-item"><span class="toolbar-stats"><strong>Violations: 0 / 0</strong></span></div>
       <div class="toolbar-item"><button class="toolbar-export">Export CSV</button></div>
     </div>
@@ -154,6 +169,7 @@ execFileSync(
         "--disable-gpu",
         "--hide-scrollbars",
         `--window-size=${windowSize}`,
+        `--force-device-scale-factor=${deviceScale}`,
         "--virtual-time-budget=1500",
         `--screenshot=${outPath}`,
         `file://${pagePath}`
@@ -161,4 +177,6 @@ execFileSync(
     { stdio: "inherit" }
 );
 
-console.log(`Wrote ${outPath} (burst captured at ${captureAt}ms)`);
+console.log(
+    `Wrote ${outPath} (burst at ${captureAt}ms, ${windowSize} css px @ ${deviceScale}x)`
+);

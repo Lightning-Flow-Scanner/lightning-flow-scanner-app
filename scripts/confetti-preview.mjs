@@ -103,7 +103,7 @@ ${confettiCss}
         </svg>
         <h3 class="clean-result-title">All clear!</h3>
         <p class="clean-result-subtitle">No violations found across 34 flows.</p>
-        <p class="clean-result-meta">27 rules run &middot; 0 violations</p>
+        <p class="clean-result-meta">30 rules run &middot; 0 violations</p>
       </div>
     </div>
   </div>

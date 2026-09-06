@@ -24,11 +24,13 @@ export default class LightningFlowScanner extends LightningElement {
     _tableFixed = { single: false, all: false };
     _resizing = null;
     _suppressNextSort = false;
+    _celebratedResults = null;
 
     renderedCallback() {
         // Re-renders (sorting, filtering, mode switches) rebuild the table DOM,
         // so any user-chosen column widths must be reapplied afterwards.
         this._applyColWidths();
+        this._maybeCelebrate();
     }
 
     disconnectedCallback() {
@@ -323,6 +325,30 @@ export default class LightningFlowScanner extends LightningElement {
 
     get totalViolationsCount() {
         return this.flattenedViolations.length;
+    }
+
+    // ----- CLEAN SCAN CELEBRATION -----
+    get cleanScanSummary() {
+        const count = this.isAllMode ? this.allScanResults.length : 0;
+        const flows = count === 1 ? "1 flow" : `${count} flows`;
+        return `No violations found across ${flows}.`;
+    }
+
+    // Fires once per scan: the celebration marks a result arriving, not the
+    // empty state being on screen, so sorting or filtering must not replay it.
+    // Scan results arrive as a fresh array, which is what identity compares.
+    _maybeCelebrate() {
+        if (!this.isAllMode || !this.allScanResults || this.totalViolationsCount > 0) {
+            this._celebratedResults = null;
+            return;
+        }
+        if (this._celebratedResults === this.allScanResults) return;
+        this._celebratedResults = this.allScanResults;
+
+        const confetti = this.template.querySelector("c-lfs-confetti");
+        if (confetti && typeof confetti.burst === "function") {
+            confetti.burst();
+        }
     }
 
     get displayedViolationsCount() {

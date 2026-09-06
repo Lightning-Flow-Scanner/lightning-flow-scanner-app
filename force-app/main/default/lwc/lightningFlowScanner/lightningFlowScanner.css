@@ -47,6 +47,34 @@
 .all-mode-container {
     display: flex;
     flex-direction: column;
+    /* Positioning context for the confetti overlay */
+    position: relative;
+}
+
+/* --------------------------
+ CLEAN SCAN RESULT
+--------------------------- */
+.all-mode-container .clean-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+    padding: 2.5rem 1rem 3rem;
+}
+.all-mode-container .clean-result-title {
+    color: #04844b;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+.all-mode-container .clean-result-subtitle {
+    color: #00205b;
+    font-size: 1rem;
+}
+.all-mode-container .clean-result-meta {
+    color: #5c6b83;
+    font-size: 0.8rem;
 }
 
 /* White body joined directly to the blue toolbar above it (no border between) */

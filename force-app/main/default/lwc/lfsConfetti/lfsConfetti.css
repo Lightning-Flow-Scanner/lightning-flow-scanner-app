@@ -1,0 +1,14 @@
+/* Overlay only — it must never intercept a click meant for the results below. */
+:host {
+    position: absolute;
+    inset: 0;
+    display: block;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.confetti-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}

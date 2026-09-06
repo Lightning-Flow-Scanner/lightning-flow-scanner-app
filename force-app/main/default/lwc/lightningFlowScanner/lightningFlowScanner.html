@@ -69,6 +69,8 @@
         <!-- ALL-FLOWS MODE -->
         <template if:true={isAllMode}>
             <div class="all-mode-container">
+                <!-- Celebration overlay, fired once when a scan comes back clean -->
+                <c-lfs-confetti></c-lfs-confetti>
                 <template if:true={allScanResults}>
                     <!-- Toolbar -->
                     <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread toolbar-row">
@@ -144,9 +146,13 @@
                                 </p>
                             </template>
                             <template if:false={totalViolationsCount}>
-                                <p class="slds-p-horizontal_small slds-text-color_success">
-                                    No violations found across all scanned flows. Great job! 🎉
-                                </p>
+                                <div class="clean-result">
+                                    <lightning-icon icon-name="utility:success" variant="success" size="large"
+                                        alternative-text="All clear"></lightning-icon>
+                                    <h3 class="clean-result-title">All clear!</h3>
+                                    <p class="clean-result-subtitle">{cleanScanSummary}</p>
+                                    <p class="clean-result-meta">{numberOfRules} rules run &middot; 0 violations</p>
+                                </div>
                             </template>
                         </template>
                     </div>

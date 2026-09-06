@@ -28,7 +28,9 @@ const argValue = (flag, fallback) => {
     return i === -1 ? fallback : args[i + 1];
 };
 const outPath = path.resolve(repoRoot, argValue("--out", "media/clean-scan-celebration.png"));
-const captureAt = Number(argValue("--at", "700"));
+const captureAt = Number(argValue("--at", "1100"));
+// Sized to the panel, so the PNG is the celebration and not a field of white.
+const windowSize = argValue("--size", "1200,400");
 
 // Chromium comes from the Playwright cache; nothing here needs Playwright itself.
 function findChrome() {
@@ -64,11 +66,11 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <style>
-  body { margin: 0; background: #f3f3f3; font-family: "Salesforce Sans", Arial, sans-serif; padding: 24px; }
-  .page { max-width: 1100px; margin: 0 auto; }
+  body { margin: 0; background: #f3f3f3; font-family: "Salesforce Sans", Arial, sans-serif; padding: 16px; }
+  .page { margin: 0 auto; }
   .slds-grid { display: flex; }
   .slds-grid_vertical-align-center { align-items: center; }
-  .table-card { min-height: 380px; }
+  .table-card { min-height: 300px; }
   .toolbar-search {
     background: #fff; border: 1px solid #00205b; border-radius: 0.25rem;
     color: #7c8ba5; font-size: 0.8rem; padding: 0.25rem 0.5rem; min-width: 140px;
@@ -151,7 +153,7 @@ execFileSync(
         "--no-sandbox",
         "--disable-gpu",
         "--hide-scrollbars",
-        "--window-size=1280,760",
+        `--window-size=${windowSize}`,
         "--virtual-time-budget=1500",
         `--screenshot=${outPath}`,
         `file://${pagePath}`
